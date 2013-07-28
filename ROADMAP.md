@@ -2,4 +2,4 @@ Roadmap
 
 0.1
 ====
-+ Add control source 
++ Add feature notification sender source ( gcm sender, apns )
