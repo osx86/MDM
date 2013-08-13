@@ -20,7 +20,7 @@ https://code.google.com/apis/console
     $apikey = 'YOUR API KEY';
 
     // primary payload variables 
-    $regids = '';
+    $regids = 'YOUR DEVICE REGISTRATION ID';
     $data = '';
     $prop = NULL;
     $msg = 'test message';
@@ -57,9 +57,9 @@ https://code.google.com/apis/console
     $canonical_ids = '';
     $results = '';
 
-    sendgcm($apikey, $regids, $msg, $prop); 
+    sendgcm($apikey, $msgtype, $regids, $msg, $prop); 
 
-    function sendgcm($apikey, $msgtype,  $regids, $msg, $prop=NULL) {
+    function sendgcm($apikey, $msgtype='json',  $regids, $msg, $prop=NULL) {
         if ( $msgtype == 'text' ) {
             $contenttype = 'application/x-www-form-urlencoded;charset=UTF-8';
         }else if ( $msgtype == 'json' ) {
@@ -76,6 +76,7 @@ https://code.google.com/apis/console
         $payload = array();
         $payload['data'] = array();
         $payload['data']['msg'] = $msg;
+        $payload['message'] = $msg;
         $payload['registration_ids'] = array();
         $payload['registration_ids'][0] = $regids;
 
