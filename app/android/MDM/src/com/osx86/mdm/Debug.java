@@ -1,6 +1,7 @@
 package com.osx86.mdm;
 
 import android.util.Log;
+import android.widget.Toast;
 
 
 class Debug {
@@ -28,4 +29,7 @@ class Debug {
 		}
 	}
 	
+	static void pop(String msg) {
+		Toast.makeText(Common.mCtx, (msg == null ? "null" : msg) , Toast.LENGTH_SHORT).show();
+	}
 }

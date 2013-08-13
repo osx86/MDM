@@ -2,8 +2,9 @@ package com.osx86.mdm;
 
 import android.util.Log;
 
+
 public class Constants {
-	
+		
 	/*
 	 *  static variables 
 	 */
@@ -36,4 +37,24 @@ public class Constants {
 	// preference 
 	public static final int MAX_RETRY_PREF_COMMIT					= 10;
 
+	// GCM Notification Types 
+	public static final String GCM_TITLE							= EnvVar.SOLUTION_NAME + "Notification";
+	
+	public static final int GCM_SOUND_DEFAULT						= 1;
+	public static final int GCM_SOUND_RINGTONE						= 2;
+	
+	public static final long[] GCM_VIBRATION_PATTERN_ONCE			= {5000};
+	public static final long[] GCM_VIBRATION_PATTERN_SHORT			= {500,500,500,500,500,500,500,500,500};
+	public static final long[] GCM_VIBRATION_PATTERN_LONG			= {5000,5000,5000,5000,5000,5000,5000,5000,5000};
+	
+	// Notification.BigPictureStyle, Notification.BigTextStyle, Notification.InboxStyle
+	public static final int GCM_STYLE_BIGPICTURE					= 1;
+	public static final int GCM_STYLE_BIGTEXT						= 2;
+	public static final int GCM_STYLE_INBOX							= 3;
+	
+	public static final String GCM_EXTRAS_MESSAGE					= "msg";
+	public static final String GCM_EXTRAS_PROP						= "prop";
+	
+	
+	
 }

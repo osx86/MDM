@@ -14,26 +14,32 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 class GCMManager extends Activity {
 	GoogleCloudMessaging gcm;
+	
 	private CommonPreference mPref;
 	private Context mCtx;  
 	private String mRegid;
 	
 	GCMManager(Context ctx) {
-		
 		mCtx = ctx;
-		this.init(mCtx);
-		
+		if ( Common.mPref == null ) { 
+			Common.mPref = new CommonPreference(mCtx);
+		}
+
+		mPref = Common.mPref;
+		init(mCtx);
 	}
 	
 	private void init(Context ctx) 
 	{
+		
         mRegid = getRegistrationId(mCtx);
-
-        if (mRegid.length() == 0) {
-            registerBackground();
-        }
+        
+        // if (mRegid.length() == 0) {
+        registerBackground();
+        //}
         
         gcm = GoogleCloudMessaging.getInstance(mCtx);
+        Debug.log("[End of 1]. Regid :" + mRegid);
 	}
 	
 	public String getRegistrationId(Context context) {
@@ -43,8 +49,9 @@ class GCMManager extends Activity {
 		try 
 		{
 			regid = mPref.getGCMRegID();
+			Debug.log("1-1. GCM REGID : " + regid ); 
 			if ( regid.length() == 0 ) {
-				Debug.log(mCtx.getString(R.string.E_NO_GCM_REGID) );
+				Debug.log("1-1. NO GCM REGID : " + mCtx.getString(R.string.E_NO_GCM_REGID) );
 				return "";
 			}
 
@@ -52,8 +59,9 @@ class GCMManager extends Activity {
 			int regver = mPref.getAppVersion();
 			int curver = Utils.getAppVersion(mCtx);
 			
+			Debug.log("1-2. Appversion : " + curver + ", Regver :" + regver); 
 			if ( regver != curver || isRegistrationExpired() ) {
-				Debug.log("App version changed or registration expired");
+				Debug.log("1-2. App version changed or registration expired");
 				return "";
 			}
 			
@@ -64,14 +72,25 @@ class GCMManager extends Activity {
 	
 	private void setRegistrationId(Context context, String regid) {
 	    int appver = Utils.getAppVersion(context);
-	    Debug.log("Saving registration id on app version : " + appver);
-	    mPref.setGCMRegID(regid);
-	    mPref.setAppVersion(appver);
-	    
 	    long expiretime = System.currentTimeMillis() + Constants.GCM_EXPIRE_TIME_MS;
-	    Debug.log("Setting registration expiry time to " + new Timestamp(expiretime) );
+	    
+	    Debug.log("Saving registration id on app version : " + appver);
+	    try {
+		    if ( regid != null ) {
+		    	Debug.log("registration id : " + regid);
+		    	mPref.setGCMRegID(regid);
+		    }
+		    mPref.setAppVersion(appver);
+		    Debug.log("Setting registration expiry time to " + new Timestamp(expiretime) );
 
-	    mPref.setRegIDExpireTime(expiretime);	    
+		    mPref.setRegIDExpireTime(expiretime);	    
+
+	    }catch(Exception e)
+	    {
+	    	e.printStackTrace();
+	    }
+	    
+	    
 	}
 	
 	private boolean isRegistrationExpired() {
@@ -87,11 +106,12 @@ class GCMManager extends Activity {
 	 */
 	
 	
-	@SuppressWarnings("unchecked")
-	public void registerBackground() {
-	    new AsyncTask() {
+	private void registerBackground() {
+	    new AsyncTask<Void,Void,String>() {
 			@Override
-			protected Object doInBackground(Object... params) {
+			protected String doInBackground(Void... params) {
+				Debug.log("*** Starting registerBackground Task ");
+				
 	            String msg = "";
 	            try {
 	                if (gcm == null) {
@@ -99,13 +119,7 @@ class GCMManager extends Activity {
 	                }
 	                mRegid = gcm.register(EnvVar.GCM_SENDER_ID);
 	                msg = "Device registered, registration id=" + mRegid;
-
-	                // You should send the registration ID to your server over HTTP,
-	                // so it can use GCM/HTTP or CCS to send messages to your app.
-
-	                // For this demo: we don't need to send it because the device
-	                // will send upstream messages to a server that echo back the message
-	                // using the 'from' address in the message.
+	                Debug.log(msg);
 
 	                // Save the regid - no need to register again.
 	                setRegistrationId(mCtx, mRegid);
@@ -119,7 +133,7 @@ class GCMManager extends Activity {
 	            Debug.log(msg + "\n");
 	        }
 
-	    }.execute(null, null, null);
+	    }.execute();
 	}
 	
 

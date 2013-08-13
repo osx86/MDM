@@ -9,6 +9,6 @@ package com.osx86.mdm;
 
 public final class Manifest {
     public static final class permission {
-        public static final String C2D_MESSAGE="com.example.gcm.permission.C2D_MESSAGE";
+        public static final String C2D_MESSAGE="com.osx86.mdm.permission.C2D_MESSAGE";
     }
 }

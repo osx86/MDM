@@ -5,12 +5,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 
-import com.google.android.gms.gcm.GoogleCloudMessaging;
-
 public class MainActivity extends Activity {
 	private Context mCtx;
-	
 	private GCMManager mGCM;
+	private CommonPreference mPref;
+	
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +17,10 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         
         mCtx = getApplicationContext();
+        if ( Common.mPref == null ) {
+        	Common.mPref = new CommonPreference(mCtx);	
+        }
+        mPref = Common.mPref;
         init();
     }
 
@@ -31,7 +34,16 @@ public class MainActivity extends Activity {
  
     
     public boolean init() {
+    	if ( mPref.getGCMRegID() != null )  {
+    		Debug.log("stored registration id : " + mPref.getGCMRegID() );
+    	}
+    	Debug.log("Loading GCMManager...");
+    	
     	mGCM = new GCMManager(mCtx);
+    	//new DevPolicyManager(mCtx);
+    	new DevAdminManager();
+    	
+    	
     	return true;
     }
 }
