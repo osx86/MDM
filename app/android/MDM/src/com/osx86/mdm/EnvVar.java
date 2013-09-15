@@ -14,7 +14,7 @@ public class EnvVar {
 	public static final String SERVER_URL							= DEFAULT_PROTOCOL + "://" + SERVER_DOMAIN;
 	
 	public static final String SOLUTION_NAME						= "MDM";
-	public static final String GCM_SENDER_ID						= "406929460544";
+	public static final String GCM_SENDER_ID						= "";
 
 	// gcm
 	public static final int GCM_SOUND								= Constants.GCM_SOUND_DEFAULT;
