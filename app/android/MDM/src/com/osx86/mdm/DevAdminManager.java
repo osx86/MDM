@@ -1,6 +1,7 @@
 package com.osx86.mdm;
 
 import android.app.Activity;
+import android.app.admin.DeviceAdminReceiver;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -10,6 +11,9 @@ import android.os.Bundle;
 public class DevAdminManager extends Activity {
 
 	private Context mCtx;
+	private DevicePolicyManager mDPM;
+	private DevAdminReceiver mDAR;
+	private ComponentName mCname;
 
 	@Override
     public void onCreate(Bundle savedInstanceState)
@@ -17,16 +21,33 @@ public class DevAdminManager extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dev_admin_manager);
         
+        mCtx = getApplicationContext();
         Debug.log("1.Loading Device Admin Receiver");
-        loadActivation();
+        loadActivation(mCtx);
     }
 	
-	private void loadActivation()
+	private void loadActivation(Context ctx)
 	{
-		Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
-        intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, new ComponentName(Common.mCtx, DevAdminReceiver.class));
+		Debug.log("Device Admin Explanation service on ");
+        mCname = new ComponentName(this, DevAdminReceiver.class);
+        
+		mDPM = (DevicePolicyManager) ctx.getSystemService(Context.DEVICE_POLICY_SERVICE);
 
-		startActivity(intent);
-		Debug.log("2. Loading Device Admin Receiver");
+		if (!mDPM.isAdminActive(mCname) ) {
+		    Intent devadminIntent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+	
+		    try {
+		    devadminIntent.putExtra( DevicePolicyManager.EXTRA_DEVICE_ADMIN, 
+		    						new ComponentName(Common.mCtx, DevAdminReceiver.class));
+		    devadminIntent.putExtra( DevicePolicyManager.EXTRA_ADD_EXPLANATION, 
+		    						getResources().getString(R.string.DEV_ADMIN_ACTIVATION_MESSAGE));
+	
+		    startActivity(devadminIntent);
+		    }catch (Exception e) 
+		    {
+		    	e.printStackTrace();
+		    }
+	    	Debug.log("DeviceAdmin Activated.");
+		}
 	}
 }

@@ -8,7 +8,7 @@ public class DevAdminReceiver extends DeviceAdminReceiver {
 
     @Override
     public void onEnabled(Context context, Intent intent) {
-        Debug.pop(context.getString(R.string.DEV_ADMIN_STATUS_ENABLED));
+        Debug.log(context.getString(R.string.DEV_ADMIN_STATUS_ENABLED));
     }
 
     @Override
@@ -18,14 +18,12 @@ public class DevAdminReceiver extends DeviceAdminReceiver {
 
     @Override
     public void onDisabled(Context context, Intent intent) {
-        Debug.pop(context.getString(R.string.DEV_ADMIN_STATUS_DISABLED));
+    	Debug.log(context.getString(R.string.DEV_ADMIN_STATUS_DISABLED));
     }
 
     @Override
     public void onPasswordChanged(Context context, Intent intent) {
         Debug.pop(context.getString(R.string.DEV_ADMIN_STATUS_PASSWD_CHANGED));
     }
-    
-    
 
 }

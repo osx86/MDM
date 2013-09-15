@@ -7,21 +7,27 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="18" />
-
+    
+    <permission android:name="com.osx86.mdm.permission.C2D_MESSAGE" 
+        android:protectionLevel="signature" />
+    
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-    <permission android:name="com.osx86.mdm.permission.C2D_MESSAGE" 
-        android:protectionLevel="signature" />
     <uses-permission android:name="com.osx86.mdm.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
     
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        
         <activity
             android:name="com.osx86.mdm.MainActivity"
             android:label="@string/app_name" >
@@ -30,6 +36,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="com.osx86.mdm.DevAdminManager"
+            android:label="@string/app_name" >
         </activity>
         
         <!-- gcm broadcast receiver --> 
@@ -50,9 +61,18 @@
         <service android:name=".GCMIntentService" />
         
         <!--  Device Admin Receiver -->
+        <receiver android:name=".DevAdminReceiver"
+			android:label="@string/DEV_ADMIN_LABEL"
+			android:description="@string/DEV_ADMIN_DESC"
+		    android:permission="android.permission.BIND_DEVICE_ADMIN">
+		    <meta-data android:name="android.app.device_admin"
+        		android:resource="@xml/device_admin_policies" />
+		    <intent-filter>
+		        <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+    		</intent-filter>
+		</receiver>
+<!-- 
 		<receiver android:name=".com.osx86.org.DevAdminReceiver$DeviceAdminReceiver"
-		        android:label="@string/DEV_ADMIN_LABEL"
-		        android:description="@string/DEV_ADMIN_DESC"
 		        android:permission="android.permission.BIND_DEVICE_ADMIN">
 		    <meta-data android:name="android.app.device_admin"
 		            android:resource="@xml/device_admin_policies" />
@@ -60,7 +80,7 @@
 		        <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
 		    </intent-filter>
 		</receiver>
-
+ -->
 </application>
 
 </manifest>

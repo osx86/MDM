@@ -40,5 +40,15 @@ class CommonPreference extends Preference
         return setValue(PrefKeys.GCM_REGID_EXPIRE_TIME, expiretime);
     }
     
+    // Battery Level 
+    String getBatteryLevel()
+    {
+        return mPref.getString(PrefKeys.BATTERY_LEVEL, Constants.DEFAULT_STRING_VAL);
+    }
+
+    boolean setBatteryLevel(String batterylevel)
+    {
+        return setValue(PrefKeys.BATTERY_LEVEL, batterylevel);
+    }
     
 }

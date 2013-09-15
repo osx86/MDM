@@ -87,6 +87,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 			    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 			
 			mNotificationManager.notify(mMsgid, mBuilder.build());
+			new DevPolicyManager(arg0).setDisableCamera(false);
 		}
 	}
 

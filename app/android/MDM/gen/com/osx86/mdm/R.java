@@ -34,15 +34,16 @@ public final class R {
         public static final int main=0x7f080000;
     }
     public static final class string {
+        public static final int DEV_ADMIN_ACTIVATION_MESSAGE=0x7f060005;
         public static final int DEV_ADMIN_DESC=0x7f060004;
         public static final int DEV_ADMIN_LABEL=0x7f060003;
-        public static final int DEV_ADMIN_STATUS_DISABLED=0x7f060007;
-        public static final int DEV_ADMIN_STATUS_DISABLE_REQUESTED=0x7f060006;
-        public static final int DEV_ADMIN_STATUS_ENABLED=0x7f060005;
-        public static final int DEV_ADMIN_STATUS_PASSWD_CHANGED=0x7f060008;
-        public static final int E_NO_GCM_REGID=0x7f060009;
-        public static final int GCM_CONTENT_TEXT=0x7f06000b;
-        public static final int GCM_TITLE=0x7f06000a;
+        public static final int DEV_ADMIN_STATUS_DISABLED=0x7f060008;
+        public static final int DEV_ADMIN_STATUS_DISABLE_REQUESTED=0x7f060007;
+        public static final int DEV_ADMIN_STATUS_ENABLED=0x7f060006;
+        public static final int DEV_ADMIN_STATUS_PASSWD_CHANGED=0x7f060009;
+        public static final int E_NO_GCM_REGID=0x7f06000a;
+        public static final int GCM_CONTENT_TEXT=0x7f06000c;
+        public static final int GCM_TITLE=0x7f06000b;
         public static final int action_settings=0x7f060001;
         public static final int app_name=0x7f060000;
         public static final int start_main=0x7f060002;
