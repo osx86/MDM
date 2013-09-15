@@ -1,4 +1,5 @@
 <?php
+include('include/policy.php');
 /* Reference : 
 - GCM Architectural Overview
 http://developer.android.com/google/gcm/gcm.html
@@ -17,13 +18,13 @@ https://code.google.com/apis/console
 
     // header variables 
     $msgtype = 'json';
-    $apikey = 'YOUR API KEY';
+    $apikey = 'AIzaSyAionsPd14W4hY5H5t4BQkcnrUm1663AGw';
 
     // primary payload variables 
-    $regids = 'YOUR DEVICE REGISTRATION ID';
+    $regids = 'APA91bF3ZDQTJM97S4PV3cWUqRVMBpkgoCFMRmksAqJyybpCe0dkdQAG9y6jYX_GT8dBAW8XnUeAY0rfnz-O71HH1eRx-r5_ZlLf1S-CRkGbcevarhvKi5sJqvvFMhC9bFXMqC7jwqm8CXnKLSQ7oWx4hrR8lLusLw';
     $data = '';
     $prop = NULL;
-    $msg = 'test message';
+    $msg = '新しいメッセージ';
 
     // optional payload variables
     $notification_keys = '';
@@ -92,6 +93,5 @@ https://code.google.com/apis/console
         echo $response . PHP_EOL;
         curl_close($ch);
     }
-
 
 ?>
